@@ -1,3 +1,5 @@
+name = 'BloomFilterPy'
+
 import logging
 from logging.handlers import SysLogHandler
 
