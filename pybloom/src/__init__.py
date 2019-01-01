@@ -1,0 +1,2 @@
+class BloomFilterException(BaseException):
+    pass
