@@ -12,22 +12,6 @@ from pybloom.src.backends.redisbackend import RedisBackend, RedisProxy
 from pybloom.src.bloomfilter import BloomFilter, BloomFilterException, Options, Size, size_to_human_format
 
 
-class MockRedisProxy(object):
-    def __init__(self):
-        self._connection = mock.patch('pybloom.src.backends.redisbackend.redis.StrictRedis',
-                                      new_callable=mock_strict_redis_client).start()
-
-    def __getattr__(self, item):
-        return getattr(self._connection, item)
-
-    def __enter__(self):
-        self._connection = self._connection.pipeline()
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        pass
-
-
 class testRedisProxy(unittest.TestCase):
     def setUp(self):
         self._proxy = RedisProxy('')
@@ -65,7 +49,7 @@ class testRedisProxy(unittest.TestCase):
             pipe.set('pipeline', 'pipe')
             pipe.execute()
 
-            assert_that(self._proxy.get('pipeline'), equal_to(b'pipe'))
+        assert_that(self._proxy.get('pipeline'), equal_to(b'pipe'))
 
 
 class testRedisBackend(unittest.TestCase):

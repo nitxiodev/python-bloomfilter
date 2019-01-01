@@ -18,7 +18,7 @@ def retry(retries, exceptions, max_retry_wait=30):
                 try:
                     return function(*args, **kwargs)
                 except exceptions as e:
-                    print("EXC ", e)
+                    # print("EXC ", e)
                     _exception_message = e
                     retry_time = min(max_retry_wait, 2 ** (_retry + 1) + (random.randint(0, 1000) / 1000.0))
                     if not skip:
