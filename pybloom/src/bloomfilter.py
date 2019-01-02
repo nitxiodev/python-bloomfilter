@@ -39,7 +39,6 @@ def size_to_human_format(size, unit=None):
 
     for mag in MAGNITUDES.keys():
         _size = float(size) / MAGNITUDES[mag]
-        # print(_size, mag, 1 - int(_size))
         if math.floor(_size) > 0:
             return Size(_size, mag)
     return Size(size, 'B')

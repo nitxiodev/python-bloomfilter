@@ -108,7 +108,7 @@ class RedisBackend(BaseBackend):
         with self._redis.as_pipeline() as pipe:
             cursor = '0'
             while cursor != 0:
-                cursor, data = self._redis.scan(cursor=0, match='{}:*'.format(self._key), count=None)
+                cursor, data = self._redis.scan(cursor=cursor, match='{}:*'.format(self._key), count=None)
                 for item in data:
                     pipe.delete(item)
             pipe.execute()

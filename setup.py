@@ -1,11 +1,17 @@
+import os, re
+
 import setuptools
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+# Read version from init (taken from bitarray setup.py)
+regex = re.compile(r'__version__\s*=\s*(\S+)', re.M)
+data = open(os.path.join('pybloom', '__init__.py')).read()
+
 setuptools.setup(
     name="BloomFilterPy",
-    version="1.0.1",
+    version=eval(regex.search(data).group(1)),
     author="nitxiodev",
     author_email="smnitxio@gmail.com",
     description="Scalable bloom filter using different backends written in Python",
