@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="BloomFilterPy",
-    version="1.0.0",
+    version="1.0.1",
     author="nitxiodev",
     author_email="smnitxio@gmail.com",
     description="Scalable bloom filter using different backends written in Python",
