@@ -12,6 +12,25 @@ from pybloom.src.backends.redisbackend import RedisBackend, RedisProxy
 from pybloom.src.bloomfilter import BloomFilter, BloomFilterException, Options, Size, size_to_human_format
 
 
+class MockRedisProxy(object):
+    def __init__(self, *args, **kwargs):
+        self._connection = mock.patch('pybloom.src.backends.redisbackend.redis.StrictRedis',
+                                      new_callable=mock_strict_redis_client).start()
+
+    def as_pipeline(self):
+        return self._connection.pipeline()
+
+    def __getattr__(self, item):
+        return getattr(self._connection, item)
+
+    def __enter__(self):
+        self._connection = self._connection.pipeline()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        pass
+
+
 class testRedisProxy(unittest.TestCase):
     def setUp(self):
         self._proxy = RedisProxy('')
@@ -54,8 +73,9 @@ class testRedisProxy(unittest.TestCase):
 
 class testRedisBackend(unittest.TestCase):
     def setUp(self):
-        self._backend = RedisBackend(array_size=10, hash_size=3, redis_connection='')
-        # self._backend._redis = MockRedisProxy()
+        with mock.patch('pybloom.src.backends.redisbackend.RedisProxy', new=MockRedisProxy):
+            self._backend = RedisBackend(array_size=10, hash_size=3, redis_connection='')
+        #         # self._backend._redis = MockRedisProxy()
 
     def testRightOffset(self):
         # First, a simple offset (first 2^32)
@@ -85,7 +105,6 @@ class testRedisBackend(unittest.TestCase):
 
         self._backend += 'horse'
         assert_that('horse' in self._backend, is_(True))
-
 
 class testNumpyBackend(unittest.TestCase):
     def setUp(self):
@@ -194,8 +213,9 @@ class testBloomFilter(unittest.TestCase):
         filter = BloomFilter(100, backend='numpy')
         assert_that(filter, instance_of(NumpyBackend))
 
-        filter = BloomFilter(100, backend='redis', redis_connection='')
-        assert_that(filter, instance_of(RedisBackend))
+        with mock.patch('pybloom.src.backends.redisbackend.RedisProxy', new=MockRedisProxy):
+            filter = BloomFilter(100, backend='redis', redis_connection='')
+            assert_that(filter, instance_of(RedisBackend))
 
         filter = BloomFilter(100, backend='bitarray')
         assert_that(filter, instance_of(BitArrayBackend))
