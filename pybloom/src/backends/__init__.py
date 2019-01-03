@@ -40,10 +40,10 @@ class BaseBackend(set):
         return self._add(*args, **kwargs)
 
     def __add__(self, other):
-        return self._add(other)
+        return self.add(other)
 
     def __iadd__(self, other):
-        return self._add(other)
+        return self.add(other)
 
     def _filter_it(self, other):
         """

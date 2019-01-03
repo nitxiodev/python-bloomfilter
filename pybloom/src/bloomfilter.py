@@ -23,7 +23,7 @@ Options = namedtuple('Options', 'optimal_size optimal_hash fpp')
 
 def size_to_human_format(size, unit=None):
     """
-    Transforms size in bits into most readable unit. For example:
+    Transforms size in bytes into most readable unit. For example:
 
     >>> size_to_human_format(2**32)
     >>> Size(size=4.0, unit='GB')
