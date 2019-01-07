@@ -14,7 +14,7 @@ MAGNITUDES = {
     'GB': (1024 ** 2) * 1024,
     'MB': 1024 ** 2,
     'KB': 1024,
-    'B': 8
+    'B': 1
 }
 
 Size = namedtuple('Size', 'size unit')
