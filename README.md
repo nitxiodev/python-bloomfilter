@@ -20,7 +20,7 @@ BloomFilterPy implements a common API regardless of the backend used. Every back
 
 - `max_number_of_element_expected`: Size of filter. Number of elements it will contain.
 - `error_rate`: rate of error you're willing to assume. Default is **0.0005**.
-- `backend`: `numpy`, `bitarray` or `redis`.
+- `backend`: `numpy`, `bitarray` or `redis`. Default is **numpy**.
 - Only applies with `redis` backend:
   - `redis_connection`: url for redis connection as accepted by redis-py.
   - `connection_retries`: max number of connection retries in case of losing the connection with redis. Default is **3**.
