@@ -1,5 +1,5 @@
 # python-bloomfilter
-Scalable bloom filter using different backends written in Python.
+Scalable bloom filter using different backends written in Python. Current version **only** works with Python 3.
 
 # Installation
 ```bash
