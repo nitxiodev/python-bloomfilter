@@ -31,7 +31,7 @@ BloomFilterPy implements a common API regardless of the backend used. Every back
 
 - `add(element)`: add a new element in the filter.
 - `full`: property that indicates if the filter is full.
-- `false_positive_probability`: property that indicates current and updated error rate of the filter. This value should match with choosed error_rate when BloomFilterPy was instanciated.
+- `false_positive_probability`: property that indicates current and updated error rate of the filter. This value should match with choosed error_rate when BloomFilterPy was instanciated, but as new items are added, this value will change.
 
 ## Example
 
@@ -45,7 +45,7 @@ if __name__ == '__main__':
         f.add(i)  # or f += i
         assert i in f
 
-    print(f.false_positive_probability, 11 in f)
+    print(f.false_positive_probability, 11 in f) # 6.431432780588261e-07 False
 ```
 
 In the example above, we have created a bloom filter using `bitarray` backend, with `10` expected elements and max false probability assumed of `0.0000003`.
