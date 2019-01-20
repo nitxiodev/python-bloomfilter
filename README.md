@@ -7,7 +7,7 @@ pip install BloomFilterPy
 ```
 # Backends
 
-Currently, BloomFilterPy has the following backends available: `numpy`, `bitarray` and `redis`. The two first ones are recommended when the expected number of elements in the filter fit in memory. Redis backend is the preferred when:
+Currently, BloomFilterPy has the following backends available: `numpy`, `bitarray` and `redis`. The first two are recommended when the expected number of elements in the filter fit in memory. Redis backend is the preferred when:
 
 - Expect huge amount of data in the filter that it doesn't fit in memory.
 - You want a distributed filter available (i.e. more than one machine).
