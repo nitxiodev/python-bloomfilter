@@ -24,7 +24,7 @@ BloomFilterPy implements a common API regardless of the backend used. Every back
   - `redis_connection`: url for redis connection as accepted by redis-py.
   - `connection_retries`: max number of connection retries in case of losing the connection with redis. Default is **3**.
   - `wait`: max waiting time before trying to make a new request against redis. 
-  - `prefix_key`: key used in redis to store bloom filter data.
+  - `prefix_key`: key used in redis to store bloom filter data. Default is **bloomfilter**.
 
 ## API
 
