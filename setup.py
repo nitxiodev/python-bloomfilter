@@ -22,14 +22,19 @@ setuptools.setup(
     install_requires=[
         'redis==2.10.6',
         'psutil==5.4.8',
-        'mock==2.0.0',
         'mmh3==2.5.1',
         'bitarray==0.8.3',
         'numpy==1.15.4',
-        'PyHamcrest==1.9.0',
-        'mockredispy==2.9.3'
+    ],
+    test_requires=[
+        'mock==2.0.0',
+        'PyHamcrest',
+        'fakeredis',
+        'nose',
+        'nose-exclude'
     ],
     classifiers=[
+        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "License :: OSI Approved :: MIT License",
         "Operating System :: POSIX :: Linux",

@@ -7,7 +7,7 @@ from pybloom.src import BloomFilterException
 from pybloom.src.backends.bitarraybackend import BitArrayBackend
 from pybloom.src.backends.numpybackend import NumpyBackend
 from pybloom.src.backends.redisbackend import RedisBackend
-from pybloom import log
+from pybloom.src import log
 
 MAGNITUDES = {
     'TB': ((1024 ** 2) ** 2),
@@ -76,16 +76,19 @@ class BloomFilter(object):
                                            'because your system has not enough memory.'
                                            ' Try using redis instead.'.format(human_readable_size.size,
                                                                               human_readable_size.unit))
-            return NumpyBackend(filter_metadata.optimal_size, filter_metadata.optimal_hash, **kwargs)
+            return NumpyBackend(filter_metadata.optimal_size, filter_metadata.optimal_hash,
+                                max_number_of_element_expected, **kwargs)
         elif backend == 'redis':
-            return RedisBackend(filter_metadata.optimal_size, filter_metadata.optimal_hash, **kwargs)
+            return RedisBackend(filter_metadata.optimal_size, filter_metadata.optimal_hash,
+                                max_number_of_element_expected, **kwargs)
         elif backend == 'bitarray':
             if not cls.has_enough_memory(human_readable_size):
                 raise BloomFilterException('The optimal filter size is {:.2f} {}, so bitarray will raise ValueError '
                                            'because the size is too big.'
                                            ' Try using redis instead.'.format(human_readable_size.size,
                                                                               human_readable_size.unit))
-            return BitArrayBackend(filter_metadata.optimal_size, filter_metadata.optimal_hash, **kwargs)
+            return BitArrayBackend(filter_metadata.optimal_size, filter_metadata.optimal_hash,
+                                   max_number_of_element_expected, **kwargs)
 
         raise BloomFilterException('Backend {!r} not found.'.format(backend))
 
