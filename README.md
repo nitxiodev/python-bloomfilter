@@ -33,6 +33,7 @@ BloomFilterPy implements a common API regardless of the backend used. Every back
 - `full`: property that indicates if the filter is full.
 - `false_positive_probability`: property that indicates current and updated error rate of the filter. This value should match with choosed error_rate when BloomFilterPy was instanciated, but as new items are added, this value will change.
 - `reset()`: purge every element from the filter. In the case of bitarray or numpy, after calling `reset()` it is possible to keep  using the filter. However, with redis backend, once `reset()` is called, you **must** reinstantiate the filter.
+- `len`: get the length of the filter (i.e. number of elements).
 
 ## Local Example
 
@@ -71,15 +72,16 @@ Once the filter is initiallized, if you **don't** change the `prefix_key` in `Bl
 
 If you install this library from sources and are interested in build a new backend, like MongoBackend or FileSystemBackend for example, is very simple. You just need extend your new backend from:
 
-- `ThreadBackend`: if you want to develop a **local** thread-safe backend, like FileSystemBackend.
+- `ThreadBackend`: if you want to develop a **local** thread-safe backend, like FileSystemBackend. This backend exposes a `lock` property to use it when a new item is added or the filter is reset.
 - `SharedBackend`: if you want to develop a **shared** backend across several machines, like DatabaseBackend.
 
 and implement the following methods:
 
 - `_add(*args, **kwargs)`: this method specify the way of adding new elements in the filter using the backend.
 - `reset()`: this method is used to delete or purge **every** element from the filter.
+- `__contains__`: this method returns the length of the filter using `_capacity` private variable (i.e. number of elements).
 
-Besides, `__init__` method **must** have two parameters to define the array size and optimal hash. For convention, `array_size: int` and `optimal_hash: int` are used.
+Besides, `__init__` method **must** have three parameters to define the array size, optimal hash and filter_size. For convention, `array_size: int`, `optimal_hash: int` and `filter_size: int` are used.
 
 For example, in a hypothetical MongoBackend, the skeleton would be something similar to:
 
