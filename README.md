@@ -1,4 +1,4 @@
-# python-bloomfilter
+# python-bloomfilter [![Downloads](https://pepy.tech/badge/bloomfilterpy)](https://pepy.tech/project/bloomfilterpy)
 Scalable bloom filter using different backends written in Python. Current version **only** works with Python 3.
 
 # Installation
