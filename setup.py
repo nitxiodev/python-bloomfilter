@@ -21,7 +21,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=[
         'redis==2.10.6',
-        'psutil==5.4.8',
+        'psutil==5.6.6',
         'mmh3==2.5.1',
         'bitarray==0.8.3',
         'numpy==1.15.4',
