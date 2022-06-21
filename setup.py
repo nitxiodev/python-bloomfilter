@@ -24,7 +24,7 @@ setuptools.setup(
         'psutil==5.6.6',
         'mmh3==2.5.1',
         'bitarray==0.8.3',
-        'numpy==1.15.4',
+        'numpy==1.22.0',
     ],
     test_requires=[
         'mock==2.0.0',
