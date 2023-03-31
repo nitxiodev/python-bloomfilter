@@ -20,7 +20,7 @@ setuptools.setup(
     url="https://github.com/nitxiodev/python-bloomfilter",
     packages=setuptools.find_packages(),
     install_requires=[
-        'redis==2.10.6',
+        'redis==4.4.4',
         'psutil==5.6.6',
         'mmh3==2.5.1',
         'bitarray==0.8.3',
